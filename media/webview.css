@@ -1,0 +1,490 @@
+/* GBA Emulator Webview Styles */
+
+:root {
+  --gba-width: 240px;
+  --gba-height: 160px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--vscode-font-family);
+  font-size: var(--vscode-font-size);
+  color: var(--vscode-foreground);
+  background-color: var(--vscode-sideBar-background);
+  overflow-x: hidden;
+  padding: 8px;
+}
+
+#emulator-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* Screen */
+#screen-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  background-color: #111827;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 2px solid var(--vscode-panel-border);
+}
+
+#gba-canvas {
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  display: block;
+}
+
+.screen-placeholder {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background:
+    linear-gradient(145deg, #d5d9b8 0%, #aeb588 100%);
+  color: #1f2718;
+  pointer-events: none;
+}
+
+.screen-placeholder-inner {
+  display: flex;
+  width: min(86%, 330px);
+  aspect-ratio: 240 / 132;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 6px solid #4a5140;
+  border-radius: 8px;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.06)),
+    repeating-linear-gradient(
+      0deg,
+      rgba(31, 39, 24, 0.06) 0,
+      rgba(31, 39, 24, 0.06) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    #bfc79a;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.2),
+    inset 0 0 24px rgba(31, 39, 24, 0.18);
+  text-align: center;
+}
+
+.screen-placeholder-title {
+  color: #28301f;
+  font-family: var(--vscode-editor-font-family);
+  font-size: clamp(13px, 4.4vw, 18px);
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.screen-placeholder-message {
+  max-width: 20em;
+  color: #39422e;
+  font-size: clamp(10px, 3.2vw, 13px);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.screen-placeholder.loading .screen-placeholder-inner::before {
+  width: 24px;
+  height: 24px;
+  content: "";
+  border: 3px solid rgba(40, 48, 31, 0.22);
+  border-top-color: #28301f;
+  border-radius: 50%;
+  animation: gba-spin 0.8s linear infinite;
+}
+
+@keyframes gba-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#status-overlay {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+#status-text {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+  text-align: center;
+  padding: 4px 8px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 4px;
+  transition: opacity 0.3s;
+}
+
+#status-text.hidden {
+  opacity: 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Controls */
+#controls {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.rom-info {
+  overflow: hidden;
+  color: var(--vscode-foreground);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Volume */
+#volume-control {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 0;
+}
+
+#volume-label {
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+}
+
+#volume-slider {
+  flex: 1;
+  height: 4px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--vscode-scrollbarSlider-background);
+  border-radius: 2px;
+  outline: none;
+}
+
+#volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--vscode-button-background);
+  cursor: pointer;
+}
+
+#volume-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--vscode-button-background);
+  cursor: pointer;
+  border: none;
+}
+
+/* Keyboard info */
+#keyboard-info,
+#settings-info {
+  font-size: 11px;
+}
+
+#keyboard-info details,
+#settings-info details {
+  border: 1px solid var(--vscode-panel-border);
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
+#keyboard-info summary,
+#settings-info summary {
+  cursor: pointer;
+  user-select: none;
+  padding: 2px 0;
+  color: var(--vscode-descriptionForeground);
+}
+
+.key-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2px 12px;
+  padding: 6px 0;
+}
+
+.key {
+  font-family: var(--vscode-editor-font-family);
+  background: var(--vscode-badge-background);
+  color: var(--vscode-badge-foreground);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 10px;
+  text-align: center;
+}
+
+.key-desc {
+  color: var(--vscode-descriptionForeground);
+  display: flex;
+  align-items: center;
+}
+
+.settings-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 6px 0 2px;
+}
+
+.setting-row,
+.range-setting {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.setting-row {
+  justify-content: space-between;
+}
+
+.range-setting {
+  flex: 1;
+}
+
+#fps-slider {
+  flex: 1;
+}
+
+#fps-value {
+  min-width: 28px;
+  color: var(--vscode-descriptionForeground);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+#language-select,
+#speed-select,
+.cheat-form input,
+.cheat-form textarea {
+  width: 100%;
+  border: 1px solid var(--vscode-input-border, transparent);
+  background-color: var(--vscode-input-background);
+  color: var(--vscode-input-foreground);
+  border-radius: 3px;
+  font-family: var(--vscode-font-family);
+  font-size: 11px;
+}
+
+#language-select,
+#speed-select {
+  max-width: 150px;
+  min-height: 24px;
+}
+
+.cheat-form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.cheat-form input {
+  min-height: 24px;
+  padding: 3px 6px;
+}
+
+.cheat-form textarea {
+  min-height: 56px;
+  padding: 5px 6px;
+  resize: vertical;
+  font-family: var(--vscode-editor-font-family);
+}
+
+.setting-help {
+  color: var(--vscode-descriptionForeground);
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.setting-help.error,
+.cheat-error {
+  color: var(--vscode-errorForeground);
+}
+
+.setting-heading {
+  color: var(--vscode-descriptionForeground);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.binding-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 4px 8px;
+  align-items: center;
+}
+
+.binding-label {
+  color: var(--vscode-descriptionForeground);
+}
+
+.binding-button,
+.settings-actions button {
+  min-height: 24px;
+  padding: 3px 7px;
+  border: 1px solid var(--vscode-button-border, transparent);
+  background-color: var(--vscode-button-secondaryBackground);
+  color: var(--vscode-button-secondaryForeground);
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: var(--vscode-font-family);
+  font-size: 11px;
+}
+
+.binding-button {
+  min-width: 72px;
+}
+
+.binding-button:hover,
+.settings-actions button:hover {
+  background-color: var(--vscode-button-secondaryHoverBackground);
+}
+
+.settings-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.cheat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cheat-item {
+  border: 1px solid var(--vscode-panel-border);
+  border-radius: 4px;
+  padding: 6px;
+}
+
+.cheat-item.invalid {
+  border-color: var(--vscode-errorForeground);
+}
+
+.cheat-item.disabled pre {
+  opacity: 0.65;
+}
+
+.cheat-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.cheat-toggle {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 5px;
+}
+
+.cheat-toggle input {
+  flex: 0 0 auto;
+}
+
+.cheat-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cheat-state {
+  flex: 0 0 auto;
+  color: var(--vscode-descriptionForeground);
+  font-size: 10px;
+}
+
+.cheat-item.disabled .cheat-state {
+  color: var(--vscode-disabledForeground, var(--vscode-descriptionForeground));
+}
+
+.cheat-item pre {
+  margin-top: 5px;
+  overflow-x: auto;
+  color: var(--vscode-descriptionForeground);
+  font-family: var(--vscode-editor-font-family);
+  font-size: 10px;
+  white-space: pre-wrap;
+}
+
+.cheat-item button {
+  min-height: 22px;
+  padding: 2px 6px;
+  border: 1px solid var(--vscode-button-border, transparent);
+  background-color: var(--vscode-button-secondaryBackground);
+  color: var(--vscode-button-secondaryForeground);
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: var(--vscode-font-family);
+  font-size: 10px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Codicon-like icons via text */
+.codicon {
+  font-size: 14px;
+}
+
+.codicon-folder-opened::before { content: "📂"; font-size: 12px; }
+.codicon-debug-pause::before { content: "⏸"; font-size: 12px; }
+.codicon-debug-start::before { content: "▶"; font-size: 12px; }
+.codicon-debug-restart::before { content: "🔄"; font-size: 12px; }
+.codicon-device-camera::before { content: "📷"; font-size: 12px; }
+
+/* Focus indicator for keyboard capture */
+#screen-container:focus-within {
+  border-color: var(--vscode-focusBorder);
+}
+
+#screen-container.focused {
+  border-color: var(--vscode-focusBorder);
+  box-shadow: 0 0 0 1px var(--vscode-focusBorder);
+}

@@ -1,0 +1,13 @@
+.vscode/**
+.vscode-test/**
+src/**
+node_modules/**
+media/**
+!media/icon.svg
+!media/store-icon.png
+.gitignore
+tsconfig.json
+vite.config.ts
+**/*.map
+**/*.ts
+**/*.gba

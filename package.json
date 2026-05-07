@@ -1,0 +1,178 @@
+{
+  "name": "vscode-gba-emulator",
+  "displayName": "GBA Emulator",
+  "description": "A Game Boy Advance emulator integrated into VS Code",
+  "version": "1.0.0",
+  "publisher": "Strifelab",
+  "license": "BSD-2-Clause",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Strifelab/Vscode-GBA"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "gba",
+    "gameboy",
+    "emulator",
+    "game boy advance"
+  ],
+  "icon": "media/store-icon.png",
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "gba-emulator",
+          "title": "GBA Emulator",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "gba-emulator": [
+        {
+          "type": "webview",
+          "id": "gbaEmulator.emulatorView",
+          "name": "GBA Emulator"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "gbaEmulator.loadRom",
+        "title": "GBA: Load ROM",
+        "icon": "$(folder-opened)"
+      },
+      {
+        "command": "gbaEmulator.pause",
+        "title": "GBA: Pause",
+        "icon": "$(debug-pause)"
+      },
+      {
+        "command": "gbaEmulator.resume",
+        "title": "GBA: Resume",
+        "icon": "$(play)"
+      },
+      {
+        "command": "gbaEmulator.reset",
+        "title": "GBA: Reset",
+        "icon": "$(debug-restart)"
+      },
+      {
+        "command": "gbaEmulator.stop",
+        "title": "GBA: Stop",
+        "icon": "$(debug-stop)"
+      },
+      {
+        "command": "gbaEmulator.screenshot",
+        "title": "GBA: Screenshot",
+        "icon": "$(device-camera)"
+      },
+      {
+        "command": "gbaEmulator.saveState",
+        "title": "GBA: Save State",
+        "icon": "$(save)"
+      },
+      {
+        "command": "gbaEmulator.loadState",
+        "title": "GBA: Load State",
+        "icon": "$(play)"
+      },
+      {
+        "command": "gbaEmulator.exportState",
+        "title": "GBA: Export State",
+        "icon": "$(export)"
+      },
+      {
+        "command": "gbaEmulator.importState",
+        "title": "GBA: Import State"
+      },
+      {
+        "command": "gbaEmulator.exportSave",
+        "title": "GBA: Export Save (.sav)"
+      },
+      {
+        "command": "gbaEmulator.importSave",
+        "title": "GBA: Import Save (.sav)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "gbaEmulator.loadRom",
+          "when": "view == gbaEmulator.emulatorView",
+          "group": "navigation@1"
+        },
+        {
+          "command": "gbaEmulator.pause",
+          "when": "view == gbaEmulator.emulatorView && gbaEmulator.emulatorState == running",
+          "group": "navigation@2"
+        },
+        {
+          "command": "gbaEmulator.resume",
+          "when": "view == gbaEmulator.emulatorView && gbaEmulator.emulatorState == paused",
+          "group": "navigation@2"
+        },
+        {
+          "command": "gbaEmulator.reset",
+          "when": "view == gbaEmulator.emulatorView",
+          "group": "navigation@3"
+        },
+        {
+          "command": "gbaEmulator.stop",
+          "when": "view == gbaEmulator.emulatorView",
+          "group": "navigation@4"
+        },
+        {
+          "command": "gbaEmulator.screenshot",
+          "when": "view == gbaEmulator.emulatorView",
+          "group": "navigation@5"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "GBA Emulator",
+      "properties": {
+        "gbaEmulator.volume": {
+          "type": "number",
+          "default": 50,
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Default emulator volume (0-100)"
+        },
+        "gbaEmulator.saveToFile": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically save progress as a .sav file in the workspace"
+        },
+        "gbaEmulator.debug": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable detailed console logs for debugging"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "build": "vite build",
+    "compile": "vite build",
+    "watch": "vite build --watch",
+    "package": "npm run build",
+    "build-vsix": "npm run package && vsce package",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.0.0",
+    "typescript": "^5.3.0",
+    "vite": "^6.4.2"
+  }
+}
