@@ -266,6 +266,7 @@ export class GbaViewProvider implements vscode.WebviewViewProvider {
           config: {
             volume: config.get<number>('volume', 50),
             debug: config.get<boolean>('debug', false),
+            enableExperimentalCheats: config.get<boolean>('enableExperimentalCheats', false),
             settings
           }
         });
@@ -447,6 +448,10 @@ export class GbaViewProvider implements vscode.WebviewViewProvider {
                             <option value="1">1x</option>
                             <option value="1.5">1.5x</option>
                             <option value="2">2x</option>
+                            <option value="3">3x</option>
+                            <option value="5">5x</option>
+                            <option value="7">7x</option>
+                            <option value="10">10x</option>
                         </select>
                     </div>
                     <div class="setting-heading">Comandi</div>

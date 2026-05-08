@@ -2,7 +2,7 @@
   "name": "vscode-gba-emulator",
   "displayName": "GBA Emulator",
   "description": "A GBA emulator integrated into VS Code",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "Strifelab",
   "license": "BSD-2-Clause",
   "repository": {
@@ -155,6 +155,11 @@
           "type": "boolean",
           "default": false,
           "description": "Enable detailed console logs for debugging"
+        },
+        "gbaEmulator.enableExperimentalCheats": {
+          "type": "boolean",
+          "default": false,
+          "description": "Show experimental cheat code controls in the emulator settings"
         }
       }
     }

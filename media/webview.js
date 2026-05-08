@@ -18,6 +18,7 @@
   let translationBundles = {};
   let saveInterval = null;
   let debugMode = false;
+  let enableExperimentalCheats = false;
   let biosData = null;
   let currentRomData = null;
   let compiledCheats = [];
@@ -104,7 +105,7 @@
   let pendingBinding = null;
 
   const SUPPORTED_LOCALES = ["it", "en", "de", "fr", "es"];
-  const SUPPORTED_SPEEDS = [1, 1.5, 2];
+  const SUPPORTED_SPEEDS = [1, 1.5, 2, 3, 5, 7, 10];
   const LANGUAGE_KEYS = {
     it: "italian",
     en: "english",
@@ -216,7 +217,7 @@
     commandsHeading = commandsHeading || headings[0] || null;
     stateHeading = stateHeading || headings[1] || null;
 
-    if (!cheatList) {
+    if (enableExperimentalCheats && !cheatList) {
       cheatsHeading = document.createElement("div");
       cheatsHeading.id = "cheats-heading";
       cheatsHeading.className = "setting-heading";
@@ -256,6 +257,13 @@
       cheatList.className = "cheat-list";
 
       settingsPanel.append(cheatsHeading, form, cheatStatus, cheatList);
+    }
+  }
+
+  function bindCheatControls() {
+    if (btnAddCheat && btnAddCheat.dataset.bound !== "true") {
+      btnAddCheat.addEventListener("click", addCheatFromForm);
+      btnAddCheat.dataset.bound = "true";
     }
   }
 
@@ -326,9 +334,7 @@
     btnLoadState.addEventListener("click", () => vscode.postMessage({ type: "requestLoadState" }));
     btnExportState.addEventListener("click", () => sendStateData("export"));
     btnImportState.addEventListener("click", () => vscode.postMessage({ type: "requestImportState" }));
-    if (btnAddCheat) {
-      btnAddCheat.addEventListener("click", addCheatFromForm);
-    }
+    bindCheatControls();
 
     // Keyboard input - cattura sul canvas container
     screenContainer.setAttribute("tabindex", "0");
@@ -375,6 +381,9 @@
               setGBADebug(debugMode);
             }
           }
+          enableExperimentalCheats = message.config.enableExperimentalCheats === true;
+          ensureSettingsControls();
+          bindCheatControls();
           if (message.config.settings !== undefined) {
             applySettings(message.config.settings);
           } else {
@@ -1067,6 +1076,11 @@
   }
 
   function compileCheats() {
+    if (!enableExperimentalCheats) {
+      compiledCheats = [];
+      return;
+    }
+
     const writes = [];
     settings.cheats.forEach((cheat) => {
       cheat.error = "";
