@@ -1,7 +1,7 @@
 {
   "name": "vscode-gba-emulator",
   "displayName": "GBA Emulator",
-  "description": "A Game Boy Advance emulator integrated into VS Code",
+  "description": "A GBA emulator integrated into VS Code",
   "version": "1.0.0",
   "publisher": "Strifelab",
   "license": "BSD-2-Clause",

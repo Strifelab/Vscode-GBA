@@ -1,12 +1,14 @@
 # GBA Emulator for VS Code
 
-![GBA Emulator icon](media/store-icon.png)
+<p align="center">
+  <img src="media/store-icon.png" alt="GBA Emulator icon" />
+</p>
 
 Play Game Boy Advance games without leaving your editor. GBA Emulator brings a lightweight, in-editor handheld experience to VS Code with quick ROM loading, save support, and a compact Activity Bar entry designed for everyday use.
 
 Built on the [gbajs](https://github.com/endrift/gbajs) core by Jeffrey Pfau (endrift).
 
-## Highlights
+## Features
 
 - Embedded GBA emulator in the VS Code Activity Bar
 - Fast ROM loading from your local filesystem
@@ -20,31 +22,13 @@ Built on the [gbajs](https://github.com/endrift/gbajs) core by Jeffrey Pfau (end
 - Keyboard-first gameplay
 - Multilingual interface support
 
-## Getting Started
+## How to Use
 
-### Install from source
-
-```bash
-git clone <repository-url>
-cd vscode-gba
-npm install
-npm run build
-```
-
-Open the project in VS Code and press `F5` to launch the extension in development mode, or package it manually with:
-
-```bash
-npx @vscode/vsce package
-```
-
-to generate a `.vsix` file for local installation.
-
-## How It Works
-
-1. After installation, a GBA icon appears in the Activity Bar.
-2. Open the view to load a ROM and start playing.
-3. Use the view controls or Command Palette actions to manage gameplay and save data.
-4. Click the game canvas and use your keyboard to control the emulator.
+1. Install the extension from the VS Code marketplace
+2. Click the GBA icon in the Activity Bar
+3. Load a ROM file and start playing
+4. Use the toolbar controls or Command Palette to manage your game
+5. Click the game canvas and use your keyboard to play
 
 ## Keyboard Controls
 
@@ -85,12 +69,9 @@ All commands are available from the Command Palette (`Ctrl+Shift+P`):
 | `gbaEmulator.saveToFile` | boolean | false   | Automatically save progress as a `.sav` file in the workspace |
 | `gbaEmulator.debug`      | boolean | false   | Enable detailed console logs for troubleshooting              |
 
-## Compatibility Notes
+## Contributing
 
-- No external BIOS file is required; the extension provides a minimal built-in BIOS.
-- ROM files should use `.gba` or `.bin` format.
-- Audio may require a user interaction before playback starts because of browser autoplay restrictions.
-- Performance depends on the Electron/Chromium runtime used by VS Code.
+Want to contribute? Check out the [CONTRIBUTING.md](CONTRIBUTING.md) file for development guidelines, architecture details, and build instructions.
 
 ## License
 
